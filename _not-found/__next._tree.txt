@@ -1,4 +1,0 @@
-:HL["/Bluefern-site/_next/static/chunks/0vgbd8qc7g2l4.css","style"]
-2:[["children",{"s":"__PAGE__","h":160}]]
-1:[["children",{"s":"/_not-found","h":64,"c":"$Q2"}]]
-0:{"b":"_W8sUlh_WGyt9ZCf1IG0c","t":{"t":{"s":"","h":16,"c":"$Q1"}}}

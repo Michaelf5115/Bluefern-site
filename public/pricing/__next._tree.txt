@@ -3,4 +3,4 @@
 :HL["/_next/static/media/53897e768d329f66-s.p.3t6q91iet4nsy.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 2:[["children",{"s":"__PAGE__","h":160}]]
 1:[["children",{"s":"pricing","h":64,"c":"$Q2"}]]
-0:{"b":"d5S_826FoOC41FN5JGt2n","t":{"t":{"s":"","h":16,"c":"$Q1"}}}
+0:{"b":"NyZ_YY_uss9upt5pvGG9o","t":{"t":{"s":"","h":16,"c":"$Q1"}}}

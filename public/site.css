@@ -631,3 +631,28 @@ html:root {
     --hm: 2;
   }
 }
+
+/* ---------------------------------------------------------------- fixes on top of the kit
+   1. Sections grow past one screen on wide windows too. The kit fixes their height from 1280px wide,
+      assuming a window at least 900px tall (1440x900); a wide but shorter window (a laptop with browser
+      bars) then drew a section's last rows over the next one. Same rules the kit uses from 640 to 1279. */
+@media (min-width: 1280px) {
+  main > :is(section, .section):not(.hero, .section--hero), footer.closing {
+    height: auto; min-height: calc(var(--h, 1) * 100vh); min-height: calc(var(--h, 1) * 100svh);
+  }
+  :where(main > :is(section, .section):not(.hero, .section--hero), footer.closing) { display: flex; flex-direction: column; }
+  main > :is(section, .section):not(.hero, .section--hero) > :is(.wrap, .container), footer.closing > .wrap { flex: 1 0 auto; height: auto; min-height: 0; }
+}
+
+/* 2. Schibsted Grotesk draws , ; : with a wide left side (a semicolon is 10px at 16px; 4-5px in other
+      sans-serifs), which reads as "files ; the". Those three marks come from the visitor's own system
+      sans instead (local fonts only: nothing is downloaded). */
+@font-face {
+  font-family: "Bluefern Punctuation";
+  src: local("Helvetica Neue"), local("HelveticaNeue"), local("Segoe UI"), local("Arial"), local("ArialMT");
+  unicode-range: U+2C, U+3A, U+3B;
+}
+html:root {
+  --font-display: "Bluefern Punctuation", var(--font-schibsted), "Schibsted Grotesk", system-ui, sans-serif;
+  --font-text: "Bluefern Punctuation", var(--font-schibsted), "Schibsted Grotesk", system-ui, sans-serif;
+}

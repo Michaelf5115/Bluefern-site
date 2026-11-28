@@ -633,16 +633,24 @@ html:root {
 }
 
 /* ---------------------------------------------------------------- fixes on top of the kit
-   1. Sections grow past one screen on wide windows too. The kit fixes their height from 1280px wide,
-      assuming a window at least 900px tall (1440x900); a wide but shorter window (a laptop with browser
-      bars) then drew a section's last rows over the next one. Same rules the kit uses from 640 to 1279. */
-@media (min-width: 1280px) {
-  main > :is(section, .section):not(.hero, .section--hero), footer.closing {
-    height: auto; min-height: calc(var(--h, 1) * 100vh); min-height: calc(var(--h, 1) * 100svh);
-  }
-  :where(main > :is(section, .section):not(.hero, .section--hero), footer.closing) { display: flex; flex-direction: column; }
-  main > :is(section, .section):not(.hero, .section--hero) > :is(.wrap, .container), footer.closing > .wrap { flex: 1 0 auto; height: auto; min-height: 0; }
+   1. Sections size to their content, with the kit's padding above and below, at every width. The kit
+      makes each section at least one screen tall (a fixed height from 1280px wide), which drew a
+      section's last rows over the next one on short laptop windows, and left 400-630px of blank screen
+      under short sections on phones and tablets (measured 2026-11-28). */
+main > :is(section, .section):not(.hero, .section--hero), footer.closing {
+  height: auto !important; min-height: 0 !important;
 }
+main > :is(section, .section):not(.hero, .section--hero) > :is(.wrap, .container), footer.closing > .wrap {
+  height: auto !important; flex: 0 0 auto !important;
+}
+/* two-screen layouts (two groups in one section) stack at their natural heights */
+main > :is(section, .section):is(.g2, .g2m) > :is(.wrap, .container), footer.closing:is(.g2, .g2m) > .wrap {
+  grid-template-rows: auto !important; row-gap: calc(var(--padt) + var(--padb)) !important;
+}
+/* a .fill took the screen's leftover height; without a fixed section height it gets its own */
+main > :is(section, .section) > .wrap > .fill { flex: 0 0 auto !important; height: auto !important; }
+/* the first section of a page (the hero) sizes to its content too, so a short page opening isn't a screen of empty space */
+main > :is(.hero, .section--hero) { height: auto !important; min-height: 0 !important; }
 
 /* 2. Schibsted Grotesk draws , ; : with a wide left side (a semicolon is 10px at 16px; 4-5px in other
       sans-serifs), which reads as "files ; the". Those three marks come from the visitor's own system
@@ -656,3 +664,11 @@ html:root {
   --font-display: "Bluefern Punctuation", var(--font-schibsted), "Schibsted Grotesk", system-ui, sans-serif;
   --font-text: "Bluefern Punctuation", var(--font-schibsted), "Schibsted Grotesk", system-ui, sans-serif;
 }
+
+/* 3. The kit outlines text that looks unfinished ([brackets], "(sample)") and pictures that failed to
+      load in red dashes, a designer's aid for its checker. The terminal's real "[new branch]" line
+      tripped it on the live site; visitors never see the outline. */
+html [data-placeholder] { outline: none !important; }
+
+/* 4. Contents links on the legal pages: at least 44px tall, so they are easy to tap on a phone. */
+.legal-toc a { display: flex; align-items: center; min-height: 44px; }
